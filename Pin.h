@@ -14,7 +14,7 @@ public:
     const int pin = -1;
     static void ValidateSingleUsage();
 private:
-    static constexpr int MaxPin = 40; // This may depend on your Arduino model.
+    static constexpr int MaxPin = 80; // This may depend on your Arduino model.
     static int Usage[MaxPin + 1]; // zero-initialize.
 };
 

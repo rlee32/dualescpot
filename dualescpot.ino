@@ -17,20 +17,20 @@ PowerPin esc1power(12);
 GroundPin esc1ground(13);
 Esc<EscLevels> esc1(esc1out, esc1power, esc1ground);
 
-InputPin buttoninput(14);
-PowerPin buttonpower(15);
-GroundPin buttonground(16);
+InputPin buttoninput(22);
+PowerPin buttonpower(24);
+GroundPin buttonground(26);
 MomentaryPushButton button(buttoninput, buttonpower, buttonground);
 
-OutputPin red0(17);
-PowerPin ledpower0(18);
-OutputPin green0(19);
-OutputPin blue0(20);
+OutputPin red0(28);
+PowerPin ledpower0(30);
+OutputPin green0(32);
+OutputPin blue0(34);
 RgbLed<PowerPin> led0(red0, ledpower0, green0, blue0);
-OutputPin red1(21);
-PowerPin ledpower1(22);
-OutputPin green1(23);
-OutputPin blue1(24);
+OutputPin red1(36);
+PowerPin ledpower1(38);
+OutputPin green1(40);
+OutputPin blue1(42);
 RgbLed<PowerPin> led1(red1, ledpower1, green1, blue1);
 
 PowerPin pot0power(A0);
@@ -62,21 +62,27 @@ void ThrottleRoutine(
 {
     int level = pot.readScaled();
     level = esc.throttle(level);
-    if (level == EscLevels - 1)
+    switch (level)
     {
-        led.blue();
-    }
-    else if (level > EscLevels / 2)
-    {
-        led.magenta();
-    }
-    else if (level > 0)
-    {
-        led.cyan();
-    }
-    else if (level == 0)
-    {
-        led.yellow();
+        case EscLevels - 1:
+        {
+            led.blue();
+        } break;
+        case 0:
+        {
+            led.yellow();
+        } break;
+        default:
+        {
+            if (level > EscLevels / 2)
+            {
+                led.magenta();
+            }
+            else
+            {
+                led.cyan();
+            }
+        } break;
     }
 }
 
